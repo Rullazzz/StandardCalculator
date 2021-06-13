@@ -6,8 +6,48 @@
         xmlns:local="clr-namespace:StandardCalculator"
         mc:Ignorable="d"
         Title="Standard Calculator" Height="450" Width="800">
-    <Grid>
-		
+    <Grid x:Name="MainGrid" Background="White">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
 
+		<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" />
+		
+		<Button Grid.Row="4" Grid.Column="0">0</Button>
+		<Button Grid.Row="4" Grid.Column="1">00</Button>
+		<Button Grid.Row="4" Grid.Column="2">.</Button>
+		
+		<Button Grid.Row="3" Grid.Column="0">1</Button>
+		<Button Grid.Row="3" Grid.Column="1">2</Button>
+		<Button Grid.Row="3" Grid.Column="2">3</Button>
+		
+		<Button Grid.Row="2" Grid.Column="0">4</Button>
+		<Button Grid.Row="2" Grid.Column="1">5</Button>
+		<Button Grid.Row="2" Grid.Column="2">6</Button>
+
+		<Button Grid.Row="1" Grid.Column="0">7</Button>
+		<Button Grid.Row="1" Grid.Column="1">8</Button>
+		<Button Grid.Row="1" Grid.Column="2">9</Button>
+
+		<Button Grid.Row="3" Grid.Column="3">+</Button>
+		<Button Grid.Row="3" Grid.Column="4">-</Button>
+		<Button Grid.Row="2" Grid.Column="3">x</Button>
+		<Button Grid.Row="2" Grid.Column="4">/</Button>
+		<Button Grid.Row="4" Grid.Column="4">=</Button>
+		<Button Grid.Row="4" Grid.Column="3">Clear</Button>
+		<Button Grid.Row="1" Grid.Column="3">(</Button>
+		<Button Grid.Row="1" Grid.Column="4">)</Button>
+		<Button Grid.Row="0" Grid.Column="4">Back</Button>
 	</Grid>
 </Window>
