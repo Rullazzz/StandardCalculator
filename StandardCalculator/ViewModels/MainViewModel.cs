@@ -2,6 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Linq;
+using System.Data;
+using StandardCalculator.Model;
 
 namespace StandardCalculator.ViewModels
 {
@@ -59,18 +61,19 @@ namespace StandardCalculator.ViewModels
             }
         }
 
-        //public ICommand GetResultCommand
-        //{
-        //    get
-        //    {
-        //        return new RelayCommand(obj =>
-        //        {
-        //            Expression = "";
-        //        });
-        //    }
-        //}
+		public ICommand GetResultCommand
+		{
+			get
+			{
+				return new RelayCommand(obj =>
+				{
+                    ICalculator calculator = new EasyCalculator();
+                    Expression = calculator.GetResult(Expression).ToString();
+				});
+			}
+		}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
