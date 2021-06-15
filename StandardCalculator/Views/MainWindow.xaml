@@ -50,7 +50,7 @@
 			Text="{Binding Expression}"/>
 
 		<Button x:Name="ButtonZero" Grid.Row="4" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonZero}">0</Button>
-		<Button x:Name="ButtonDot" Grid.Row="4" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonDot}">.</Button>
+		<Button x:Name="ButtonDot" Grid.Row="4" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonDot}">,</Button>
 
 		<Button x:Name="ButtonOne" Grid.Row="3" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonOne}">1</Button>
 		<Button x:Name="ButtonTwo" Grid.Row="3" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonTwo}">2</Button>

@@ -28,10 +28,8 @@ namespace StandardCalculator.ViewModels
                 {
                     if (obj is string str)
 					{
-                        if (str != "." || str == "." && Expression.Count(c => c == '.') == 0)
-						{
-                            Expression += str;
-                        }
+                        // TODO: Написать проверку добавления запятой.
+                        Expression += str;
                     }
                 },
                 obj => Expression.Length < 50);
@@ -67,7 +65,7 @@ namespace StandardCalculator.ViewModels
 			{
 				return new RelayCommand(obj =>
 				{
-                    ICalculator calculator = new EasyCalculator();
+                    ICalculator calculator = new SortFacility();
                     Expression = calculator.GetResult(Expression).ToString();
 				});
 			}
