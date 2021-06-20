@@ -78,6 +78,16 @@ namespace StandardCalculator.Model
 			return oper;
 		}
 
+		private bool IsBinary(string oper)
+		{
+			if (oper is null)
+			{
+				throw new ArgumentNullException(nameof(oper));
+			}
+
+			return Operators.Contains(oper);
+		}
+
 		/// <summary>
 		/// Возвращает обратную польскую запись. 
 		/// </summary>
@@ -164,36 +174,87 @@ namespace StandardCalculator.Model
 			return result;
 		}
 
-		public double GetResult(string expression)
+		private double Calculate(double leftNumber, double rightNumber, string binaryOperator)
 		{
-			return CalculateExample(expression);
+			switch (binaryOperator)
+			{
+				case "+":
+					return leftNumber + rightNumber;
+				case "-":
+					return leftNumber - rightNumber;
+				case "*":
+					return leftNumber * rightNumber;
+				case "/":
+					return leftNumber / rightNumber;
+				//case "^":
+				//	return Math.Pow(leftNumber, rightNumber);
+				default:
+					return 0;
+			}
 		}
 
-		public double CalculateExample(string example)
+		public double Calculate(string example)
 		{
 			var operands = new Stack<double>();
-			var pn = GetPolishNotation(example).Split(' ');
+			var pn = new List<string>();
+			// Where() - нужен, чтобы убрать ненужные пробелы.
+			pn.AddRange(GetPolishNotation(example).Split(' ').Where(p => p != ""));
+			string token;
 
-			for (int i = 0; i < pn.Length; i++)
+			for (int i = 0; i < pn.Count; i++)
 			{
-				if (Double.TryParse((pn[i]), out double number))
+				token = pn[i];
+				if (Double.TryParse(token, out double number))
 				{
 					operands.Push(number);
 				}
 				else
 				{
-					// TODO: Написать обработчик.
-					if (operands.Count == 1)
+					if (!IsBinary(token))
 					{
-
+						ChangeSign(operands, token);
 					}
-					var secondNumber = operands.Pop();
-					var firstNumber = operands.Pop();
+					else
+					{
+						var secondNumber = operands.Pop();
+						var firstNumber = operands.Pop();
 
+						operands.Push(Calculate(firstNumber, secondNumber, token));
+					}
 				}
 			}
 			var result = operands.Pop();
 			return result;
+		}
+
+		private void ChangeSign(Stack<double> operands, string token)
+		{
+			if (operands is null)
+			{
+				throw new ArgumentNullException(nameof(operands));
+			}
+			if (string.IsNullOrWhiteSpace(token))
+			{
+				throw new ArgumentException(nameof(token));
+			}
+
+			var number = operands.Pop();
+			switch (token)
+			{
+				case "~":
+					operands.Push(-number);
+					break;
+				case "#":
+					operands.Push(number);
+					break;
+				default:
+					throw new Exception("Error");
+			}
+		}
+
+		public double GetResult(string expression)
+		{
+			return Calculate(expression);
 		}
 	}
 }
