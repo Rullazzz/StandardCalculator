@@ -19,13 +19,19 @@ namespace StandardCalculator.Model.Tests
 			{
 				"1 + 2",
 				"-1 + 2",
-				"5x(2+2)",
+				"5*(2+2)",
+				"1-(-2)",
+				"1-(-(-3))",
+				"1+(-2)"
 			};
 			var answers = new List<string>()
 			{
 				"1 2 + ",
-				"1 - 2 + ",
-				"5 2 2 + x ",
+				"1 ~ 2 + ",
+				"5 2 2 + * ",
+				"1 2 ~ - ",
+				"1 3 ~ ~ - ",
+				"1 2 ~ + "
 			};
 			var sortFacility = new SortFacility();
 			var answersFunc = new List<string>();

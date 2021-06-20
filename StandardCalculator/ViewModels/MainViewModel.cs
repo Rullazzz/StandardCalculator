@@ -26,10 +26,13 @@ namespace StandardCalculator.ViewModels
             {
                 return new RelayCommand(obj =>
                 {
-                    if (obj is string str)
+                    if (obj is string token)
 					{
                         // TODO: Написать проверку добавления запятой.
-                        Expression += str;
+      //                  if (int.TryParse(token, out int _))
+						//{
+                            Expression += token;
+      //                  }
                     }
                 },
                 obj => Expression.Length < 50);

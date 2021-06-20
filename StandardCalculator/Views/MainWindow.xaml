@@ -66,7 +66,7 @@
 
 		<Button x:Name="ButtonPlus" Grid.Row="3" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonPlus}">+</Button>
 		<Button x:Name="ButtonMinus" Grid.Row="3" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonMinus}">-</Button>
-		<Button x:Name="ButtonMultiply" Grid.Row="2" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonMultiply}">x</Button>
+		<Button x:Name="ButtonMultiply" Grid.Row="2" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonMultiply}">*</Button>
 		<Button x:Name="ButtonShare" Grid.Row="2" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonShare}">/</Button>
 		<Button x:Name="ButtonAnswer" Grid.Row="4" Grid.Column="4" Command="{Binding GetResultCommand}">=</Button>
 		<Button x:Name="ButtonClear"  Grid.Row="4" Grid.Column="3" Command="{Binding ClearCommand}">Clear</Button>
