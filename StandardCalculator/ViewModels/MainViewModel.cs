@@ -28,12 +28,32 @@ namespace StandardCalculator.ViewModels
                 {
                     if (obj is string token)
 					{
-                        // TODO: Написать проверку добавления запятой.
-      //                  if (int.TryParse(token, out int _))
-						//{
-                            Expression += token;
-      //                  }
-                    }
+						// TODO: Написать проверку добавления запятой.
+						if (int.TryParse(token, out int _))
+						{
+							Expression += token;
+						}
+						else if (Expression.Length > 0)
+						{
+                            if (SortFacility.Operators.Contains(Expression[Expression.Length - 1].ToString()))
+							{
+                                if ((Expression[Expression.Length - 1] == '-') && token == "-")
+								{
+                                    Expression += "(" + token;
+								}
+								else
+								{
+                                    if (token != "(" && token != ")")
+                                        Expression = Expression.Remove(Expression.Length - 1);
+                                    Expression += token;
+                                }
+                            }
+                            else
+							{
+                                Expression += token;
+                            }
+						}
+					}
                 },
                 obj => Expression.Length < 50);
             }
@@ -69,7 +89,14 @@ namespace StandardCalculator.ViewModels
 				return new RelayCommand(obj =>
 				{
                     ICalculator calculator = new SortFacility();
-                    Expression = calculator.GetResult(Expression).ToString();
+                    try
+					{
+                        Expression = calculator.GetResult(Expression).ToString();
+                    }
+                    catch
+					{
+                        Expression = "Ошибка!";
+					}
 				});
 			}
 		}

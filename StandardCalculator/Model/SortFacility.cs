@@ -6,9 +6,9 @@ namespace StandardCalculator.Model
 {
 	public class SortFacility : ICalculator
 	{
-		private readonly List<string> Operators;
+		public static readonly List<string> Operators;
 
-		public SortFacility()
+		static SortFacility()
 		{
 			Operators = new List<string>()
 			{
