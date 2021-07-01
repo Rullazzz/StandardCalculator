@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StandardCalculator" 
 		xmlns:vm="clr-namespace:StandardCalculator.ViewModels" 
 		mc:Ignorable="d"
-        Title="Standard Calculator" Height="450" Width="800">
+        Title="Standard Calculator" Height="400" Width="550" ResizeMode="NoResize">
 
 	<Window.DataContext>
 		<vm:MainViewModel />
@@ -24,54 +24,82 @@
 			<Setter Property="FontFamily" Value="Verdana" />
 			<Setter Property="FontSize" Value="25" />
 		</Style>
+
+		<Style TargetType="Grid">
+			<Setter Property="MinHeight" Value="300" />
+			<Setter Property="MinWidth" Value="500" />
+			<Setter Property="MaxHeight" Value="400" />
+			<Setter Property="MaxWidth" Value="550" />
+		</Style>
+
+		<Style TargetType="Menu">
+			<Setter Property="Background" Value="Black" />
+			<Setter Property="Foreground" Value="White" />
+		</Style>
 	</Window.Resources>
 
-	<Grid x:Name="MainGrid" Background="White">
+	<Grid x:Name="MainGrid">
 		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition />
+			<RowDefinition Height="0.05*" />
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition />
-		</Grid.ColumnDefinitions>
 
-		<TextBlock 
+		<Grid Grid.Row="0" Height="auto">
+			<Menu Height="25" VerticalAlignment="Top">
+				<MenuItem Header="История" />
+				<MenuItem Header="Об авторе" />
+			</Menu>
+		</Grid>
+		
+		
+		<Grid Background="White" Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<TextBlock 
 			Grid.Row="0" 
 			Grid.Column="0" 
 			Grid.ColumnSpan="5" 
 			HorizontalAlignment="Right"
 			Text="{Binding Expression}"/>
 
-		<Button x:Name="ButtonZero" Grid.Row="4" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonZero}">0</Button>
-		<Button x:Name="ButtonDot" Grid.Row="4" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonDot}">,</Button>
+			<Button x:Name="ButtonZero" Grid.Row="4" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonZero}">0</Button>
+			<Button x:Name="ButtonDot" Grid.Row="4" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonDot}">,</Button>
 
-		<Button x:Name="ButtonOne" Grid.Row="3" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonOne}">1</Button>
-		<Button x:Name="ButtonTwo" Grid.Row="3" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonTwo}">2</Button>
-		<Button x:Name="ButtonThree" Grid.Row="3" Grid.Column="2" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonThree}">3</Button>
+			<Button x:Name="ButtonOne" Grid.Row="3" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonOne}">1</Button>
+			<Button x:Name="ButtonTwo" Grid.Row="3" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonTwo}">2</Button>
+			<Button x:Name="ButtonThree" Grid.Row="3" Grid.Column="2" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonThree}">3</Button>
 
-		<Button x:Name="ButtonFour" Grid.Row="2" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonFour}">4</Button>
-		<Button x:Name="ButtonFive" Grid.Row="2" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonFive}">5</Button>
-		<Button x:Name="ButtonSix" Grid.Row="2" Grid.Column="2" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonSix}">6</Button>
+			<Button x:Name="ButtonFour" Grid.Row="2" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonFour}">4</Button>
+			<Button x:Name="ButtonFive" Grid.Row="2" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonFive}">5</Button>
+			<Button x:Name="ButtonSix" Grid.Row="2" Grid.Column="2" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonSix}">6</Button>
 
-		<Button x:Name="ButtonSeven" Grid.Row="1" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonSeven}">7</Button>
-		<Button x:Name="ButtonEight" Grid.Row="1" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonEight}">8</Button>
-		<Button x:Name="ButtonZeroNine" Grid.Row="1" Grid.Column="2" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonZeroNine}">9</Button>
+			<Button x:Name="ButtonSeven" Grid.Row="1" Grid.Column="0" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonSeven}">7</Button>
+			<Button x:Name="ButtonEight" Grid.Row="1" Grid.Column="1" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonEight}">8</Button>
+			<Button x:Name="ButtonZeroNine" Grid.Row="1" Grid.Column="2" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonZeroNine}">9</Button>
 
-		<Button x:Name="ButtonPlus" Grid.Row="3" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonPlus}">+</Button>
-		<Button x:Name="ButtonMinus" Grid.Row="3" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonMinus}">-</Button>
-		<Button x:Name="ButtonMultiply" Grid.Row="2" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonMultiply}">*</Button>
-		<Button x:Name="ButtonShare" Grid.Row="2" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonShare}">/</Button>
-		<Button x:Name="ButtonAnswer" Grid.Row="4" Grid.Column="4" Command="{Binding GetResultCommand}">=</Button>
-		<Button x:Name="ButtonClear"  Grid.Row="4" Grid.Column="3" Command="{Binding ClearCommand}">Clear</Button>
-		<Button x:Name="LeftParenthesis" Grid.Row="1" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=LeftParenthesis}">(</Button>
-		<Button x:Name="RightParenthesis" Grid.Row="1" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=RightParenthesis}">)</Button>
-		<Button Grid.Row="4" Grid.Column="2" Command="{Binding DeleteCommand}">Back</Button>
+			<Button x:Name="ButtonPlus" Grid.Row="3" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonPlus}">+</Button>
+			<Button x:Name="ButtonMinus" Grid.Row="3" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonMinus}">-</Button>
+			<Button x:Name="ButtonMultiply" Grid.Row="2" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonMultiply}">*</Button>
+			<Button x:Name="ButtonShare" Grid.Row="2" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=ButtonShare}">/</Button>
+			<Button x:Name="ButtonAnswer" Grid.Row="4" Grid.Column="4" Command="{Binding GetResultCommand}">=</Button>
+			<Button x:Name="ButtonClear"  Grid.Row="4" Grid.Column="3" Command="{Binding ClearCommand}">Clear</Button>
+			<Button x:Name="LeftParenthesis" Grid.Row="1" Grid.Column="3" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=LeftParenthesis}">(</Button>
+			<Button x:Name="RightParenthesis" Grid.Row="1" Grid.Column="4" Command="{Binding AddCommand}" CommandParameter="{Binding Content, ElementName=RightParenthesis}">)</Button>
+			<Button Grid.Row="4" Grid.Column="2" Command="{Binding DeleteCommand}">Back</Button>
+		</Grid>
 	</Grid>
+	
 </Window>
