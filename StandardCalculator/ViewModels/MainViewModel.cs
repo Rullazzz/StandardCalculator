@@ -4,6 +4,8 @@ using System.Windows.Input;
 using System.Linq;
 using System.Data;
 using StandardCalculator.Model;
+using StandardCalculator.Views;
+using System.Collections.Generic;
 
 namespace StandardCalculator.ViewModels
 {
@@ -19,6 +21,13 @@ namespace StandardCalculator.ViewModels
                 OnPropertyChanged();
             }
 		}
+        private List<string> _history = new List<string>();
+
+		public List<string> History
+		{
+			get { return _history; }
+		}
+
 
 		public ICommand AddCommand
         {
@@ -89,19 +98,48 @@ namespace StandardCalculator.ViewModels
 				return new RelayCommand(obj =>
 				{
                     ICalculator calculator = new SortFacility();
+                    string result = "";
                     try
 					{
+                        result = Expression;
                         Expression = calculator.GetResult(Expression).ToString();
+                        result += $" = {Expression}";
+                        _history.Add(result);
                     }
                     catch
 					{
                         Expression = "Ошибка!";
 					}
-				});
+                });
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        public ICommand ShowAuthor
+		{
+			get
+			{
+                return new RelayCommand(obj =>
+				{
+                    var authorWindow = new AuthorWindow();
+                    authorWindow.ShowDialog();
+                });
+			}
+		}
+
+        public ICommand ShowHistory
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+					// TODO: Написать вывод диалогового окна.
+					var historyWindow = new HistoryWindow(_history);
+                    historyWindow.ShowDialog();
+				});
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)

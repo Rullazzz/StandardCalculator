@@ -46,8 +46,8 @@
 
 		<Grid Grid.Row="0" Height="auto">
 			<Menu Height="25" VerticalAlignment="Top">
-				<MenuItem Header="История" />
-				<MenuItem Header="Об авторе" />
+				<MenuItem Header="История" Command="{Binding ShowHistory}" />
+				<MenuItem Header="Об авторе" Command="{Binding ShowAuthor}" />
 			</Menu>
 		</Grid>
 		
