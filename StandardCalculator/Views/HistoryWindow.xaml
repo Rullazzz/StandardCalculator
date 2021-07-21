@@ -7,9 +7,11 @@
         mc:Ignorable="d"
         Title="История" Height="300" Width="270">
 	<Window.Resources>
+		
 		<Style TargetType="TextBlock">
 			<Setter Property="FontSize" Value="20" />
 		</Style>
+		
 		<Style TargetType="ListBox">
 			<Setter Property="Background" Value="Blue" />
 			<Setter Property="Foreground" Value="Black" />
@@ -20,9 +22,9 @@
 	</Window.Resources>
 
 	<Grid>
-		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
 			<TextBlock Text="История" />
-			<ListBox Loaded="HistoryList_Loaded" Height="225" Width="auto" Margin="0 5 0 0"/>
+			<ListBox HorizontalAlignment="Stretch" Loaded="HistoryList_Loaded" Margin="0 5 0 0"/>
 		</StackPanel>
 		</Grid>
 </Window>

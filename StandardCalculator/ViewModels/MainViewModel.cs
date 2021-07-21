@@ -12,6 +12,11 @@ namespace StandardCalculator.ViewModels
 	class MainViewModel : INotifyPropertyChanged
     {        
         private string _expression = "";
+
+        /// <summary>
+        /// true - если была ошибка при вычислении, иначе false.
+        /// </summary>
+		public bool IsError { get; private set; }
 		public string Expression
 		{
 			get { return _expression; }
@@ -37,6 +42,11 @@ namespace StandardCalculator.ViewModels
                 {
                     if (obj is string token)
 					{
+                        if (IsError)
+						{
+                            Expression = "";
+                            IsError = false;
+						}
 						// TODO: Написать проверку добавления запятой.
 						if (int.TryParse(token, out int _))
 						{
@@ -105,10 +115,12 @@ namespace StandardCalculator.ViewModels
                         Expression = calculator.GetResult(Expression).ToString();
                         result += $" = {Expression}";
                         _history.Add(result);
+                        IsError = false;
                     }
                     catch
 					{
                         Expression = "Ошибка!";
+                        IsError = true;
 					}
                 });
 			}
