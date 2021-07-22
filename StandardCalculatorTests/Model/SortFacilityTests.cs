@@ -22,7 +22,8 @@ namespace StandardCalculator.Model.Tests
 				"5*(2+2)",
 				"1-(-2)",
 				"1-(-(-3))",
-				"1+(-2)"
+				"1+(-2)",
+				"5-(-4*3)" // Из-за этого примера сдела приоритет у скобки ноль.
 			};
 			var answers = new List<string>()
 			{
@@ -31,7 +32,8 @@ namespace StandardCalculator.Model.Tests
 				"5 2 2 + * ",
 				"1 2 ~ - ",
 				"1 3 ~ ~ - ",
-				"1 2 ~ + "
+				"1 2 ~ + ",
+				"5 4 ~ 3 * - ",
 			};
 			var sortFacility = new SortFacility();
 			var answersFunc = new List<string>();

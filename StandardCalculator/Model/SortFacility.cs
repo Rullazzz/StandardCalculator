@@ -37,6 +37,8 @@ namespace StandardCalculator.Model
 				case "~": // Унарный минус
 				case "#": // Унарный плюс
 					return 3;
+				case "(":
+					return 0;
 				default:
 					throw new ArgumentException(op);
 			}
