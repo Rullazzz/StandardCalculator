@@ -80,6 +80,11 @@ namespace StandardCalculator.Model
 			return oper;
 		}
 
+		/// <summary>
+		/// Проверяет, является ли оператор бинарным.
+		/// </summary>
+		/// <param name="oper"> Оператор. </param>
+		/// <returns> Возвращает true, если оператор бинарный, иначе false. </returns>
 		private bool IsBinary(string oper)
 		{
 			if (oper is null)
@@ -176,6 +181,13 @@ namespace StandardCalculator.Model
 			return result;
 		}
 
+		/// <summary>
+		/// Вычисляет математическое выражение из 2-ух чисел.
+		/// </summary>
+		/// <param name="leftNumber"> Первое число. </param>
+		/// <param name="rightNumber"> Второе число. </param>
+		/// <param name="binaryOperator"> Бинарный оператор. </param>
+		/// <returns> Результат вычисления. </returns>
 		private double Calculate(double leftNumber, double rightNumber, string binaryOperator)
 		{
 			switch (binaryOperator)
@@ -195,6 +207,11 @@ namespace StandardCalculator.Model
 			}
 		}
 
+		/// <summary>
+		/// Вычисляет пример.
+		/// </summary>
+		/// <param name="example"> Строка примера. </param>
+		/// <returns> Результат вычисления. </returns>
 		public double Calculate(string example)
 		{
 			var operands = new Stack<double>();
@@ -229,8 +246,14 @@ namespace StandardCalculator.Model
 			return result;
 		}
 
+		/// <summary>
+		/// Меняет знак у числа.
+		/// </summary>
+		/// <param name="operands"> Стэк операндов. </param>
+		/// <param name="token"> Унарный знак. </param>
 		private void ChangeSign(Stack<double> operands, string token)
 		{
+			#region Проверка
 			if (operands is null)
 			{
 				throw new ArgumentNullException(nameof(operands));
@@ -239,6 +262,7 @@ namespace StandardCalculator.Model
 			{
 				throw new ArgumentException(nameof(token));
 			}
+			#endregion
 
 			var number = operands.Pop();
 			switch (token)

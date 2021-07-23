@@ -10,23 +10,23 @@ using System.Collections.Generic;
 namespace StandardCalculator.ViewModels
 {
 	class MainViewModel : INotifyPropertyChanged
-    {        
-        private string _expression = "";
+	{        
+		private string _expression = "";
 
-        /// <summary>
-        /// true - если была ошибка при вычислении, иначе false.
-        /// </summary>
+		/// <summary>
+		/// true - если была ошибка при вычислении, иначе false.
+		/// </summary>
 		public bool IsError { get; private set; }
 		public string Expression
 		{
 			get { return _expression; }
 			set
 			{
-                _expression = value;
-                OnPropertyChanged();
-            }
+				_expression = value;
+				OnPropertyChanged();
+			}
 		}
-        private List<string> _history = new List<string>();
+		private List<string> _history = new List<string>();
 
 		public List<string> History
 		{
@@ -35,17 +35,17 @@ namespace StandardCalculator.ViewModels
 
 
 		public ICommand AddCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    if (obj is string token)
+		{
+			get
+			{
+				return new RelayCommand(obj =>
+				{
+					if (obj is string token)
 					{
-                        if (IsError)
+						if (IsError)
 						{
-                            Expression = "";
-                            IsError = false;
+							Expression = "";
+							IsError = false;
 						}
 						// TODO: Написать проверку добавления запятой.
 						if (int.TryParse(token, out int _))
@@ -54,52 +54,52 @@ namespace StandardCalculator.ViewModels
 						}
 						else if (Expression.Length > 0)
 						{
-                            if (SortFacility.Operators.Contains(Expression[Expression.Length - 1].ToString()))
+							if (SortFacility.Operators.Contains(Expression[Expression.Length - 1].ToString()))
 							{
-                                if ((Expression[Expression.Length - 1] == '-') && token == "-")
+								if ((Expression[Expression.Length - 1] == '-') && token == "-")
 								{
-                                    Expression += "(" + token;
+									Expression += "(" + token;
 								}
 								else
 								{
-                                    if (token != "(" && token != ")")
-                                        Expression = Expression.Remove(Expression.Length - 1);
-                                    Expression += token;
-                                }
-                            }
-                            else
+									if (token != "(" && token != ")")
+										Expression = Expression.Remove(Expression.Length - 1);
+									Expression += token;
+								}
+							}
+							else
 							{
-                                Expression += token;
-                            }
+								Expression += token;
+							}
 						}
 					}
-                },
-                obj => Expression.Length < 50);
-            }
-        }
+				},
+				obj => Expression.Length < 50);
+			}
+		}
 
-        public ICommand DeleteCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    Expression = Expression.Remove(Expression.Length - 1);
-                }, 
-                obj => Expression.Length > 0);
-            }
-        }
+		public ICommand DeleteCommand
+		{
+			get
+			{
+				return new RelayCommand(obj =>
+				{
+					Expression = Expression.Remove(Expression.Length - 1);
+				}, 
+				obj => Expression.Length > 0);
+			}
+		}
 
-        public ICommand ClearCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    Expression = "";
-                });
-            }
-        }
+		public ICommand ClearCommand
+		{
+			get
+			{
+				return new RelayCommand(obj =>
+				{
+					Expression = "";
+				});
+			}
+		}
 
 		public ICommand GetResultCommand
 		{
@@ -107,55 +107,54 @@ namespace StandardCalculator.ViewModels
 			{
 				return new RelayCommand(obj =>
 				{
-                    ICalculator calculator = new SortFacility();
-                    string result = "";
-                    try
+					ICalculator calculator = new SortFacility();
+					string result = "";
+					try
 					{
-                        result = Expression;
-                        Expression = calculator.GetResult(Expression).ToString();
-                        result += $" = {Expression}";
-                        _history.Add(result);
-                        IsError = false;
-                    }
-                    catch
-					{
-                        Expression = "Ошибка!";
-                        IsError = true;
+						result = Expression;
+						Expression = calculator.GetResult(Expression).ToString();
+						result += $" = {Expression}";
+						_history.Add(result);
+						IsError = false;
 					}
-                });
+					catch
+					{
+						Expression = "Ошибка!";
+						IsError = true;
+					}
+				});
 			}
 		}
 
-        public ICommand ShowAuthor
+		public ICommand ShowAuthor
 		{
 			get
 			{
-                return new RelayCommand(obj =>
+				return new RelayCommand(obj =>
 				{
-                    var authorWindow = new AuthorWindow();
-                    authorWindow.ShowDialog();
-                });
+					var authorWindow = new AuthorWindow();
+					authorWindow.ShowDialog();
+				});
 			}
 		}
 
-        public ICommand ShowHistory
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-					// TODO: Написать вывод диалогового окна.
+		public ICommand ShowHistory
+		{
+			get
+			{
+				return new RelayCommand(obj =>
+				{
 					var historyWindow = new HistoryWindow(_history);
-                    historyWindow.ShowDialog();
+					historyWindow.ShowDialog();
 				});
-            }
-        }
+			}
+		}
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-    }
+		public event PropertyChangedEventHandler PropertyChanged;
+		public void OnPropertyChanged([CallerMemberName] string prop = "")
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, new PropertyChangedEventArgs(prop));
+		}
+	}
 }

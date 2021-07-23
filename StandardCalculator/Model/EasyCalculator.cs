@@ -3,7 +3,7 @@ using System.Data;
 
 namespace StandardCalculator.Model
 {
-	class EasyCalculator : ICalculator
+	public class EasyCalculator : ICalculator
 	{
 		public double GetResult(string expression)
 		{

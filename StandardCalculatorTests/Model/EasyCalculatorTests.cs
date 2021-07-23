@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace StandardCalculator.Model.Tests
 {
 	[TestClass()]
-	public class SortFacilityTests
+	public class EasyCalculatorTests
 	{
 		[TestMethod()]
-		public void GetPolishNotationTest()
+		public void GetResultTest()
 		{
 			// Arrange
 			var expressions = new List<string>()
@@ -27,30 +27,28 @@ namespace StandardCalculator.Model.Tests
 			};
 			var answers = new List<string>()
 			{
-				"1 2 + ",
-				"1 ~ 2 + ",
-				"5 2 2 + * ",
-				"1 2 ~ - ",
-				"1 3 ~ ~ - ",
-				"1 2 ~ + ",
-				"5 4 ~ 3 * - ",
+				"3",
+				"1",
+				"20",
+				"3",
+				"-2",
+				"-1",
+				"17",
 			};
-			var sortFacility = new SortFacility();
-			var answersFunc = new List<string>();
-
-
+			var answersEasyCalculator = new List<string>();
+			var easyCalculator = new EasyCalculator();
 			// Act
 			foreach (var exp in expressions)
 			{
-				answersFunc.Add(sortFacility.GetPolishNotation(exp));
+				answersEasyCalculator.Add(easyCalculator.GetResult(exp).ToString());
 			}
 
 
 			// Assert
 			for (var i = 0; i < answers.Count; i++)
 			{
-				Assert.AreEqual(answers[i], answersFunc[i]);
-			}		
+				Assert.AreEqual(answers[i], answersEasyCalculator[i]);
+			}
 		}
 	}
 }
