@@ -6,6 +6,7 @@ using System.Data;
 using StandardCalculator.Model;
 using StandardCalculator.Views;
 using System.Collections.Generic;
+using System;
 
 namespace StandardCalculator.ViewModels
 {
@@ -47,16 +48,17 @@ namespace StandardCalculator.ViewModels
 							Expression = "";
 							IsError = false;
 						}
-						// TODO: Написать проверку добавления запятой.
+
 						if (int.TryParse(token, out int _))
 						{
 							Expression += token;
 						}
 						else if (Expression.Length > 0)
 						{
-							if (SortFacility.Operators.Contains(Expression[Expression.Length - 1].ToString()))
+							var lastSimbol = Expression[Expression.Length - 1].ToString();
+							if (SortFacility.Operators.Contains(lastSimbol) && token != ",")
 							{
-								if ((Expression[Expression.Length - 1] == '-') && token == "-")
+								if ((lastSimbol == "-") && token == "-")
 								{
 									Expression += "(" + token;
 								}
@@ -69,13 +71,43 @@ namespace StandardCalculator.ViewModels
 							}
 							else
 							{
-								Expression += token;
+								if (token == ",")
+								{
+									TryAddComma();
+								}
+								else
+								{
+									if (lastSimbol != ",")
+										Expression += token;
+								}								
 							}
 						}
 					}
 				},
 				obj => Expression.Length < 50);
 			}
+		}
+
+		/// <summary>
+		/// Пытается добавить в пример запятую.
+		/// </summary>
+		/// <returns> true, если установить удалось, иначе false. </returns>
+		private bool TryAddComma()
+		{
+			var lastSimbol = Expression.Last().ToString();
+			if (SortFacility.Operators.Contains(lastSimbol) || lastSimbol == "(" || lastSimbol == ")")
+			{
+				return false;
+			}
+			var operators = SortFacility.Operators.ToArray();
+			var numbers = Expression.Split(operators, StringSplitOptions.RemoveEmptyEntries).ToList();
+			var lastNumber = numbers.Last();
+			if (lastNumber.Contains(','))
+			{
+				return false;
+			}
+			Expression += ",";
+			return true;
 		}
 
 		public ICommand DeleteCommand
