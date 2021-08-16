@@ -37,6 +37,7 @@ namespace StandardCalculator.Model.Tests
 			};
 			var answersEasyCalculator = new List<string>();
 			var easyCalculator = new EasyCalculator();
+
 			// Act
 			foreach (var exp in expressions)
 			{
@@ -48,6 +49,45 @@ namespace StandardCalculator.Model.Tests
 			for (var i = 0; i < answers.Count; i++)
 			{
 				Assert.AreEqual(answers[i], answersEasyCalculator[i]);
+			}
+		}
+
+		[TestMethod()]
+		public void GetResultAsyncTest()
+		{
+			// Arrange
+			var answers = new List<string>()
+			{
+				"3",
+				"1",
+				"20",
+				"3",
+				"-2",
+				"-1",
+				"17",
+			};
+
+			var easyCalculator = new EasyCalculator();
+			var tasks = new Task<double>[]
+			{
+				new Task<double>(() => easyCalculator.GetResultAsync("1 + 2").Result),
+				new Task<double>(() => easyCalculator.GetResultAsync("-1 + 2").Result),
+				new Task<double>(() => easyCalculator.GetResultAsync("5*(2+2)").Result),
+				new Task<double>(() => easyCalculator.GetResultAsync("1-(-2)").Result),
+				new Task<double>(() => easyCalculator.GetResultAsync("1-(-(-3))").Result),
+				new Task<double>(() => easyCalculator.GetResultAsync("1+(-2)").Result),
+				new Task<double>(() => easyCalculator.GetResultAsync("5-(-4*3)").Result),
+			};
+
+			// Act
+			foreach (var task in tasks)
+				task.Start();
+
+			// Assert
+			Task.WaitAll(tasks);
+			for (var i = 0; i < answers.Count; i++)
+			{
+				Assert.AreEqual(answers[i], tasks[i].Result.ToString());
 			}
 		}
 	}

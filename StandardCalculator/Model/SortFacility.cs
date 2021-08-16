@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace StandardCalculator.Model
 {
@@ -281,6 +282,12 @@ namespace StandardCalculator.Model
 		public double GetResult(string expression)
 		{
 			return Calculate(expression);
+		}
+
+		public async Task<double> GetResultAsync(string expression)
+		{
+			double result = await Task<double>.Run(() => Calculate(expression));
+			return result;
 		}
 	}
 }

@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StandardCalculator.Views"
         mc:Ignorable="d"
-        Title="AuthorWindow" Height="100" Width="200" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
-    <Grid>
-		<TextBlock Text="Автор: Сысюк Захар" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic" FontWeight="Bold" />
+        Title="AuthorWindow" Height="160" Width="280" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+	<Grid>
+		<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic" FontWeight="Bold" FontSize="16">
+			Автор: Сысюк Захар
+			<LineBreak />
+			Студент 2 курса СибГУТИ
+		</TextBlock>
 	</Grid>
 </Window>
