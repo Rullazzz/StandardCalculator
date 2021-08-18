@@ -84,7 +84,6 @@ namespace StandardCalculator.Model.Tests
 				task.Start();
 
 			// Assert
-			Task.WaitAll(tasks);
 			for (var i = 0; i < answers.Count; i++)
 			{
 				Assert.AreEqual(answers[i], tasks[i].Result.ToString());

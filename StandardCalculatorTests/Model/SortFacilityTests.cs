@@ -23,7 +23,7 @@ namespace StandardCalculator.Model.Tests
 				"1-(-2)",
 				"1-(-(-3))",
 				"1+(-2)",
-				"5-(-4*3)" // Из-за этого примера сделал приоритет у скобки ноль.
+				"5-(-4*3)"
 			};
 			var answers = new List<string>()
 			{
@@ -67,9 +67,12 @@ namespace StandardCalculator.Model.Tests
 				"-1",
 				"17",
 			};
+
 			var sortFacility = new SortFacility();
 			var tasks = new Task<double>[]
 			{
+				
+				
 				new Task<double>(() => sortFacility.GetResultAsync("1 + 2").Result),
 				new Task<double>(() => sortFacility.GetResultAsync("-1 + 2").Result),
 				new Task<double>(() => sortFacility.GetResultAsync("5*(2+2)").Result),
@@ -84,10 +87,51 @@ namespace StandardCalculator.Model.Tests
 				task.Start();
 
 			// Assert
-			Task.WaitAll(tasks);
 			for (var i = 0; i < answers.Count; i++)
 			{
 				Assert.AreEqual(answers[i], tasks[i].Result.ToString());
+			}
+		}
+
+		[TestMethod()]
+		public void GetResultTest()
+		{
+			// Arrange
+			var expressions = new List<string>()
+			{
+				"1 + 2",
+				"-1 + 2",
+				"5*(2+2)",
+				"1-(-2)",
+				"1-(-(-3))",
+				"1+(-2)",
+				"5-(-4*3)"
+			};
+
+			var answers = new List<string>()
+			{
+				"3",
+				"1",
+				"20",
+				"3",
+				"-2",
+				"-1",
+				"17",
+			};
+
+			var answersEasyCalculator = new List<string>();
+			var SortFacility = new SortFacility();
+
+			// Act
+			foreach (var exp in expressions)
+			{
+				answersEasyCalculator.Add(SortFacility.GetResult(exp).ToString());
+			}
+
+			// Assert
+			for (var i = 0; i < answers.Count; i++)
+			{
+				Assert.AreEqual(answers[i], answersEasyCalculator[i]);
 			}
 		}
 	}
